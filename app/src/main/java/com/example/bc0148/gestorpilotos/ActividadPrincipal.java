@@ -49,4 +49,13 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
+
+        db.add(new Piloto(1,"p1",1,"Derbi",true));
+        db.add(new Piloto(2,"p2",1,"Honda",true));
+        db.add(new Piloto(3,"p3",1,"Yamaha",true));
+    }
 }

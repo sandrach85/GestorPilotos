@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 import static com.example.bc0148.gestorpilotos.PilotoContract.tablaPiloto;
 
 public class AlmacenPilotos extends SQLiteOpenHelper {
@@ -22,7 +24,7 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String consultaSQL = "CREATE TABLE " + tablaPiloto.TABLE_NAME + " ("
-                + tablaPiloto.COL_NAME_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + tablaPiloto.COL_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + tablaPiloto.COL_NAME_NOMBRE + " TEXT,"
                 + tablaPiloto.COL_NAME_DORSAL + " INTEGER,"
                 + tablaPiloto.COL_NAME_MOTO + " TEXT,"
@@ -57,6 +59,17 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
         }
 
         return (int)db.insert(tablaPiloto.TABLE_NAME, null, valores);
+    }
+
+    public ArrayList<Piloto> getAll(){
+        //recuperacion de datos a traves de la clase cursor, que ya viene implementada
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //TODO recorrer el cursor asignando resultados
+
+        //TODO devolver el resultado
+
+
     }
 
 

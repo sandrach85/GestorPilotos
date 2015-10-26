@@ -57,5 +57,9 @@ public class ActividadPrincipal extends AppCompatActivity {
         db.add(new Piloto(1,"p1",1,"Derbi",true));
         db.add(new Piloto(2,"p2",1,"Honda",true));
         db.add(new Piloto(3,"p3",1,"Yamaha",true));
+
+        // TODO recuperar todos los pilotos
+
+        //TODO mostrar pilotos en una lista
     }
 }

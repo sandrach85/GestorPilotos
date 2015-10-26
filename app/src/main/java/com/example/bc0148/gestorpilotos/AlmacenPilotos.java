@@ -64,11 +64,13 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
     public ArrayList<Piloto> getAll(){
         //recuperacion de datos a traves de la clase cursor, que ya viene implementada
         SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Piloto> resultado = new ArrayList<>();
 
         //TODO recorrer el cursor asignando resultados
 
         //TODO devolver el resultado
 
+        return resultado;
 
     }
 

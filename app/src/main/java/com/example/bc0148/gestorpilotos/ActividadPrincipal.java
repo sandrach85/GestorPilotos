@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class ActividadPrincipal extends AppCompatActivity {
+
+    protected ArrayList<Piloto> pilotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,11 @@ public class ActividadPrincipal extends AppCompatActivity {
         db.add(new Piloto(1,"p1",1,"Derbi",true));
         db.add(new Piloto(2,"p2",1,"Honda",true));
         db.add(new Piloto(3,"p3",1,"Yamaha",true));
+
+        pilotos=db.getAll();
+
+        //ArrayAdapter<Piloto> adaptador = new PilotoAdapter(contexto, pilotos);
+        //lvListadoPilotos
 
         // TODO recuperar todos los pilotos
 

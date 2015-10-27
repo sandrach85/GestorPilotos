@@ -2,6 +2,7 @@ package com.example.bc0148.gestorpilotos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -62,16 +63,38 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
     }
 
     public ArrayList<Piloto> getAll(){
-        //recuperacion de datos a traves de la clase cursor, que ya viene implementada
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Piloto> resultado = new ArrayList<>();
 
-        //TODO recorrer el cursor asignando resultados
+        String consultaSQL="SELECT * FROM " + tablaPiloto.TABLE_NAME;
+        Cursor cursor=db.rawQuery(consultaSQL,null);
 
-        //TODO devolver el resultado
+        if (cursor!=null) {
+            cursor.moveToFirst();
+            do {
+                resultado.add(new Piloto(cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ID)),
+                        cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_NOMBRE)),
+                        cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_DORSAL)),
+                        cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_MOTO)),
+                        cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ACTIVO)) != 0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
 
         return resultado;
 
+    }
+
+    public long count(){
+        String consultaSQL="SELECT COUNT(*) FROM" + tablaPiloto.TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(consultaSQL,null);
+        cursor.moveToFirst();
+        long numero = cursor.getLong(0);
+
+        cursor.close();
+        return numero;
     }
 
 

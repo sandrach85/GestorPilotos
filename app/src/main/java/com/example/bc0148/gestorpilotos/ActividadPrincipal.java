@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,22 @@ public class ActividadPrincipal extends AppCompatActivity {
             }
         });
         contexto = getApplicationContext();
+
+
+        AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
+
+        ArrayList<Piloto> pilotos =db.getAll();
+        PilotoAdapter pilotoAdapter = new PilotoAdapter(this,pilotos);
+        final ListView lvPilotos = (ListView)findViewById(R.id.lvListadoPilotos);
+        lvPilotos.setAdapter(pilotoAdapter);
+
+        lvPilotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String opcionElegida = lvPilotos.getItemAtPosition(position).toString();
+                Toast.makeText(getApplicationContext(), opcionElegida, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

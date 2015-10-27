@@ -1,19 +1,24 @@
 package com.example.bc0148.gestorpilotos;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class ActividadPrincipal extends AppCompatActivity {
 
     protected ArrayList<Piloto> pilotos;
+    protected Context contexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class ActividadPrincipal extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        contexto = getApplicationContext();
     }
 
     @Override
@@ -53,22 +59,22 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
 
-        db.add(new Piloto(1,"p1",1,"Derbi",true));
-        db.add(new Piloto(2,"p2",1,"Honda",true));
-        db.add(new Piloto(3,"p3",1,"Yamaha",true));
+       /* db.add(new Piloto(7, "p1", 1, "Derbi", false));
+        db.add(new Piloto(5, "p2", 25, "Honda", true));
+        db.add(new Piloto(6, "p3", 66, "Yamaha", true));*/
 
-        pilotos=db.getAll();
+        pilotos = db.getAll();
 
-        //ArrayAdapter<Piloto> adaptador = new PilotoAdapter(contexto, pilotos);
-        //lvListadoPilotos
+        Log.i("--", "--");
+        ArrayAdapter<Piloto> adaptador = new PilotoAdapter(contexto, pilotos);
+        ListView lvPilotos = (ListView) findViewById(R.id.lvListadoPilotos);
+        lvPilotos.setAdapter(adaptador);
 
-        // TODO recuperar todos los pilotos
-
-        //TODO mostrar pilotos en una lista
     }
 }

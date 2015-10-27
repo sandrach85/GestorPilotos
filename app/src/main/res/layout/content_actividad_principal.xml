@@ -16,5 +16,6 @@
     <ListView
         android:id="@+id/lvListadoPilotos"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"></ListView>
+        android:layout_height="fill_parent"
+        android:focusable="false"></ListView>
 </RelativeLayout>

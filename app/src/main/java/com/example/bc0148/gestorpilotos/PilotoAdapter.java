@@ -15,22 +15,25 @@ public class PilotoAdapter extends ArrayAdapter<Piloto> {
     private Context _contexto;
     private ArrayList<Piloto> _pilotos;
 
-    public PilotoAdapter (Context context, ArrayList<Piloto> pilotos){
-        super(context, R.layout.content_tabla,pilotos);
+    public PilotoAdapter(Context context, ArrayList<Piloto> pilotos) {
+        super(context, R.layout.content_tabla, pilotos);
         this._pilotos = pilotos;
-        this._contexto= context;
+        this._contexto = context;
     }
 
+    @Override
+    public boolean isEnabled(int position) {
+        return true;
+    }
 
-    public View getView(int position, View convertView, ViewGroup parent){
-        if (convertView==null){
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) _contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView= inflater.inflate(R.layout.content_tabla,null);
-
+            convertView = inflater.inflate(R.layout.content_tabla, null);
         }
 
         Piloto piloto = _pilotos.get(position);
-        if (piloto !=null){
+        if (piloto != null) {
             TextView tvId = (TextView) convertView.findViewById(R.id.tvId);
             tvId.setText(String.format("%d", piloto.get_id()));
 
@@ -44,8 +47,8 @@ public class PilotoAdapter extends ArrayAdapter<Piloto> {
             tvMoto.setText(piloto.get_moto());
 
             CheckBox ctvActivo = (CheckBox) convertView.findViewById(R.id.tvActivo);
-            ctvActivo.setClickable(false);;
-            ctvActivo.setFocusable(false);;
+            ctvActivo.setClickable(false);
+            ctvActivo.setFocusable(false);
             ctvActivo.setFocusableInTouchMode(false);
             ctvActivo.setChecked(piloto.is_activo());
         }
@@ -53,5 +56,4 @@ public class PilotoAdapter extends ArrayAdapter<Piloto> {
         return convertView;
     }
 
-    //inflater Layout
 }

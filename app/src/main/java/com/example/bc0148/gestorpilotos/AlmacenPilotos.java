@@ -42,10 +42,11 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
 
     /**
      * Añadir piloto
+     *
      * @param piloto
      * @return int Nª de fila
      */
-    public int add(Piloto piloto){
+    public int add(Piloto piloto) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues valores = new ContentValues();
 
@@ -53,23 +54,24 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
         valores.put(tablaPiloto.COL_NAME_NOMBRE, piloto.get_nombre());
         valores.put(tablaPiloto.COL_NAME_DORSAL, piloto.get_dorsal());
         valores.put(tablaPiloto.COL_NAME_MOTO, piloto.get_moto());
-        if (piloto.is_activo()){
-            valores.put(tablaPiloto.COL_NAME_ACTIVO, 0);
-        }else {
-            valores.put(tablaPiloto.COL_NAME_ACTIVO, 1);
-        }
+        valores.put(tablaPiloto.COL_NAME_ACTIVO, piloto.is_activo() ? 1 : 0);
+//        if (piloto.is_activo()) {
+//            valores.put(tablaPiloto.COL_NAME_ACTIVO, 1);
+//        } else {
+//            valores.put(tablaPiloto.COL_NAME_ACTIVO, 0);
+//        }
 
-        return (int)db.insert(tablaPiloto.TABLE_NAME, null, valores);
+        return (int) db.insert(tablaPiloto.TABLE_NAME, null, valores);
     }
 
-    public ArrayList<Piloto> getAll(){
+    public ArrayList<Piloto> getAll() {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Piloto> resultado = new ArrayList<>();
 
-        String consultaSQL="SELECT * FROM " + tablaPiloto.TABLE_NAME;
-        Cursor cursor=db.rawQuery(consultaSQL,null);
+        String consultaSQL = "SELECT * FROM " + tablaPiloto.TABLE_NAME;
+        Cursor cursor = db.rawQuery(consultaSQL, null);
 
-        if (cursor!=null) {
+        if (cursor != null) {
             cursor.moveToFirst();
             do {
                 resultado.add(new Piloto(cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ID)),
@@ -85,11 +87,11 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
 
     }
 
-    public long count(){
-        String consultaSQL="SELECT COUNT(*) FROM" + tablaPiloto.TABLE_NAME;
+    public long count() {
+        String consultaSQL = "SELECT COUNT(*) FROM" + tablaPiloto.TABLE_NAME;
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(consultaSQL,null);
+        Cursor cursor = db.rawQuery(consultaSQL, null);
         cursor.moveToFirst();
         long numero = cursor.getLong(0);
 

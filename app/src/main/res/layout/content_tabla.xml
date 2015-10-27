@@ -4,6 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#819FF7"
     android:weightSum="5">
 
     <TextView
@@ -31,6 +32,9 @@
         android:id="@+id/tvActivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_weight="1"/>
 
 </LinearLayout>

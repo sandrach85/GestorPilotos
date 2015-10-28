@@ -14,7 +14,7 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
 
     //Nombre del fichero de base de datos
     protected static final String DEFAULT_DB_FILENAME = "pilotos.db";
-    protected static final int DATABADE_VERSION = 1;
+    protected static final int DATABADE_VERSION = 2;
 
 
     public AlmacenPilotos(Context context) {
@@ -29,7 +29,8 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
                 + tablaPiloto.COL_NAME_NOMBRE + " TEXT,"
                 + tablaPiloto.COL_NAME_DORSAL + " INTEGER,"
                 + tablaPiloto.COL_NAME_MOTO + " TEXT,"
-                + tablaPiloto.COL_NAME_ACTIVO + " INTEGER)";
+                + tablaPiloto.COL_NAME_ACTIVO + " INTEGER,"
+                + tablaPiloto.COL_NAME_IMAGEN_URL + " TEXT)";
         db.execSQL(consultaSQL);
     }
 
@@ -55,6 +56,7 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
         valores.put(tablaPiloto.COL_NAME_DORSAL, piloto.get_dorsal());
         valores.put(tablaPiloto.COL_NAME_MOTO, piloto.get_moto());
         valores.put(tablaPiloto.COL_NAME_ACTIVO, piloto.is_activo() ? 1 : 0);
+        valores.put(tablaPiloto.COL_NAME_IMAGEN_URL, piloto.get_imagen_url());
 //        if (piloto.is_activo()) {
 //            valores.put(tablaPiloto.COL_NAME_ACTIVO, 1);
 //        } else {
@@ -71,17 +73,17 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
         String consultaSQL = "SELECT * FROM " + tablaPiloto.TABLE_NAME;
         Cursor cursor = db.rawQuery(consultaSQL, null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
+        if (cursor.moveToFirst()) {
             do {
                 resultado.add(new Piloto(cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ID)),
                         cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_NOMBRE)),
                         cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_DORSAL)),
                         cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_MOTO)),
-                        cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ACTIVO)) != 0));
+                        cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ACTIVO)) != 0,
+                        cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_IMAGEN_URL))));
             } while (cursor.moveToNext());
+            cursor.close();
         }
-        cursor.close();
 
         return resultado;
 

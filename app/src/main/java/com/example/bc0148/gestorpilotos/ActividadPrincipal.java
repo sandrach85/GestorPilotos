@@ -1,6 +1,7 @@
 package com.example.bc0148.gestorpilotos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,6 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -50,10 +50,36 @@ public class ActividadPrincipal extends AppCompatActivity {
         lvPilotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Piloto piloto = (Piloto)lvPilotos.getItemAtPosition(position);
+
+                Intent intent = new Intent(getApplicationContext(),ActividadMostrarPilotos.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("ID", piloto.get_id());
+                bundle.putString("NOMBRE", piloto.get_nombre());
+                bundle.putInt("DORSAL", piloto.get_dorsal());
+                bundle.putString("MOTO", piloto.get_moto());
+                bundle.putBoolean("ACTIVO", piloto.is_activo());
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
+        //Para poner el toast
+        /*AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
+
+        ArrayList<Piloto> pilotos =db.getAll();
+        PilotoAdapter pilotoAdapter = new PilotoAdapter(this,pilotos);
+        final ListView lvPilotos = (ListView)findViewById(R.id.lvListadoPilotos);
+        lvPilotos.setAdapter(pilotoAdapter);
+
+        lvPilotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String opcionElegida = lvPilotos.getItemAtPosition(position).toString();
                 Toast.makeText(getApplicationContext(), opcionElegida, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     @Override
@@ -83,9 +109,9 @@ public class ActividadPrincipal extends AppCompatActivity {
         super.onStart();
         AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
 
-       /* db.add(new Piloto(7, "p1", 1, "Derbi", false));
-        db.add(new Piloto(5, "p2", 25, "Honda", true));
-        db.add(new Piloto(6, "p3", 66, "Yamaha", true));*/
+        db.add(new Piloto(9, "p1", 1, "Derbi", false, "Imagen_url"));
+        db.add(new Piloto(10, "p2", 25, "Honda", true, "Imagen_url2"));
+        db.add(new Piloto(11, "p3", 66, "Yamaha", true, "Imagen_url3"));
 
         pilotos = db.getAll();
 

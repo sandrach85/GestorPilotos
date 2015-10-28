@@ -49,8 +49,6 @@
             android:text="Activo"
             android:layout_weight="1"/>
 
-
-
     </LinearLayout>
 
 

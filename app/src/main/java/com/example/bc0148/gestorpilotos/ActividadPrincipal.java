@@ -59,6 +59,7 @@ public class ActividadPrincipal extends AppCompatActivity {
                 bundle.putInt("DORSAL", piloto.get_dorsal());
                 bundle.putString("MOTO", piloto.get_moto());
                 bundle.putBoolean("ACTIVO", piloto.is_activo());
+                bundle.putString("IMAGENULL", piloto.get_imagen_url());
 
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -109,9 +110,11 @@ public class ActividadPrincipal extends AppCompatActivity {
         super.onStart();
         AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
 
-        db.add(new Piloto(9, "p1", 1, "Derbi", false, "Imagen_url"));
-        db.add(new Piloto(10, "p2", 25, "Honda", true, "Imagen_url2"));
-        db.add(new Piloto(11, "p3", 66, "Yamaha", true, "Imagen_url3"));
+        db.deletaAll();
+
+        db.add(new Piloto(15, "p1", 1, "Derbi", false, null));
+        db.add(new Piloto(16, "p2", 25, "Honda", true, "image_url"));
+        db.add(new Piloto(17, "p3", 66, "Yamaha", true, null));
 
         pilotos = db.getAll();
 

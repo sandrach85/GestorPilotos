@@ -14,7 +14,7 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
 
     //Nombre del fichero de base de datos
     protected static final String DEFAULT_DB_FILENAME = "pilotos.db";
-    protected static final int DATABADE_VERSION = 2;
+    protected static final int DATABADE_VERSION = 3;
 
 
     public AlmacenPilotos(Context context) {
@@ -99,6 +99,12 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
 
         cursor.close();
         return numero;
+    }
+
+    public void deletaAll(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String consultaSQL = "DELETE FROM " + tablaPiloto.TABLE_NAME;
+        db.execSQL(consultaSQL);
     }
 
 

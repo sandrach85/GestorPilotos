@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -27,10 +29,13 @@ public class ActividadMostrarPilotos extends Activity {
         ImageView image= (ImageView) findViewById(R.id.infoPilotoImagen);
 
         if ((bundle.getString("IMAGENULL"))!=null){
-            // Mostrar contenido
-            TareaCargarImagen tarea = new TareaCargarImagen();
+            // Mostrar contenido con tarea asincrona
+            /*TareaCargarImagen tarea = new TareaCargarImagen();
             image.setTag(URL_OBJETIVO);
-            tarea.execute(image);
+            tarea.execute(image);*/
+
+            //con picasso
+            Picasso.with(getApplicationContext()).load(bundle.getString("IMAGENULL")).into(image);
         }
 
         TextView idPiloto = (TextView) findViewById(R.id.infoPilotoId);
@@ -54,7 +59,7 @@ public class ActividadMostrarPilotos extends Activity {
 
     }
 
-    private class TareaCargarImagen extends AsyncTask<ImageView, Void, Bitmap> {
+   /* private class TareaCargarImagen extends AsyncTask<ImageView, Void, Bitmap> {
 
         ImageView imageView = null;
 
@@ -85,5 +90,6 @@ public class ActividadMostrarPilotos extends Activity {
             }
             return bmp;
         }
-    }
+    }*/
+
 }

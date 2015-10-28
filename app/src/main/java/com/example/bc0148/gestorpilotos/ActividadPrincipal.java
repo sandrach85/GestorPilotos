@@ -112,8 +112,8 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         db.deletaAll();
 
-        db.add(new Piloto(15, "p1", 1, "Derbi", false, null));
-        db.add(new Piloto(16, "p2", 25, "Honda", true, "image_url"));
+        db.add(new Piloto(15, "p1", 1, "Derbi", false, "https://avatars1.githubusercontent.com/u/5365410"));
+        db.add(new Piloto(16, "p2", 25, "Honda", true, null));
         db.add(new Piloto(17, "p3", 66, "Yamaha", true, null));
 
         pilotos = db.getAll();
